@@ -142,7 +142,7 @@ func proxyHandler(p *httputil.ReverseProxy, log logr.Logger, a *auth.Authorizati
 		log.Info("Authenticated request", "path", r.URL.Path)
 		r.Host = domain
 		r.Header.Del("Authorization")
-		patB64 := base64.StdEncoding.EncodeToString([]byte("pat:" + pat))
+		patB64 := base64.StdEncoding.EncodeToString([]byte("Basic:" + pat))
 		r.Header.Add("Authorization", "Basic "+patB64)
 
 		p.ServeHTTP(w, r)
